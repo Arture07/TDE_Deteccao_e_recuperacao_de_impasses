@@ -1,5 +1,4 @@
-#Pseudocódigo de referência (versão corrigida — hierarquia)
- 
+#Pseudocódigo de referência (versão corrigida — hierarquia  
 """"
 
 Regra global: sempre adquirir LOCK_A antes de LOCK_B, em TODAS as threads.
@@ -37,7 +36,7 @@ def thread_1():
     
     LOCK_B.release()
     print("liberando lock B - 1")
-    time.sleep(1)
+    time.sleep(0.5)
 
     LOCK_A.release()
     print("liberando lock A - 1")
@@ -50,7 +49,7 @@ def thread_2():
 
     LOCK_A.acquire()
     print("Adquirindo lock A - 2")
-    time.sleep(1)
+    time.sleep(0.5)
 
     LOCK_B.acquire()
     print("Adquirindo lock B - 2")
@@ -61,7 +60,7 @@ def thread_2():
     
     LOCK_B.release()
     print("liberando lock B - 2")
-    time.sleep(1)
+    time.sleep(0.5)
 
     LOCK_A.release()
     print("liberando lock A - 2")
