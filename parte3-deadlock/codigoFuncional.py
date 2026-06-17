@@ -76,4 +76,5 @@ thread_2.start()
 
 thread_1.join()
 thread_2.join()
+
 print("Chegou aqui?")
