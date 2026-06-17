@@ -1,7 +1,7 @@
 <div align="center">
   
 
-  ## TDE 2 - Detecção e recuperação de impasses
+  ## TDE 2 - Detecção e Recuperação de Impasses
   
   >
   
@@ -14,7 +14,10 @@
   </a>
 </p>
 
-## Integrantes do Grupo
+## Informações do Grupo
+**Nome: Grupo 3**
+
+**Integrantes:**
  * Arthur Kuzma
  * Larissa Adames
  * Rafael Fernandes
@@ -57,5 +60,8 @@ Codigo com Falhas:
 ## 3. CONCLUSÃO 
   Para solucionar o estado de deadlock do sistema, foi utilizada uma hierarquia de recursos, assim como proposto na atividade, exigindo que todas as threads solicitassem primeiramente o LOCK_A para que somente após isso pudessem solicitar o LOCK_B, assim quebrando a condição de “espera circular”, pois, a thread A não dependia de um recurso mantido pela thread B nem vice-versa, vale salientar que ordem de execução das threads não interferiu nos resultados de sucesso segundo o observado. Observe também que as condições de “sem preempção”, “exclusão mútua” e “retenção de recursos” não foram quebradas, ou seja, essas condições ainda são válidas no sistema, provando que para que o deadlock realmente ocorra, todas as “Condições de Coffman” precisam ser atendidas . 
 
- ## OBS:
- Para rodar esse código, basta apenas baixar esses arquivos e executar normalmente em seu vs code.
+ ## Orientações de Execução do Código
+* Clone esse repositório normalmente em sua máquina;
+* Em sua IDE de preferência (VS code é o recomendado) execute o código;
+
+**OBS:** esse código não necessita de quaisquer outros passos para a sua execução.
