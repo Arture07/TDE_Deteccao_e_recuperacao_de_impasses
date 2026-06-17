@@ -9,8 +9,8 @@
 
 ## Link do Youtube
 <p align="left">
-  <a href="https://www.linkedin.com/in/rafael-eliezer-dantas-botelho-fernandes" target="_blank">
-     <img src="https://img.shields.io/badge/LinkedIn-00FFFF?style=for-the-badge&logo=linkedin&logoColor=041B2D" />
+  <a href="nada ainda" target="_blank">
+     <img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
   </a>
 </p>
 
