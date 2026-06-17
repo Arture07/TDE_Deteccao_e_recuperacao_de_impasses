@@ -1,4 +1,3 @@
-#cada filosofo é um thread e cada garfo é umk semqaoro
 
 from random import uniform
 from time import sleep
@@ -13,11 +12,13 @@ class Filosofo(Thread):
         self.nome = nome
         self.garfoE= garfoE
         self.garfoD = garfoD
+        
     def run(self):
         while self.exe:
             print(f"\n {self.nome} está pensando")
             sleep(uniform(5, 15))
             self.comer()
+            
     def comer(self):
         garfo1, garfo2 = self.garfoE , self.garfoD
         
@@ -32,8 +33,8 @@ class Filosofo(Thread):
             return
         print(f"\n {self.nome} ta comendo")
         sleep(uniform(5, 10))
-        print(f"\n {self.nome} paro de come e ta pensando")
-        pratos[nomes.index(self.nome)] += 1 #mostra quantas vezes o caba papou
+        print(f"\n {self.nome} parou de comer e ta pensando")
+        pratos[nomes.index(self.nome)] += 1 
         print(pratos)
         #larga os garfos
         garfo1.release()
