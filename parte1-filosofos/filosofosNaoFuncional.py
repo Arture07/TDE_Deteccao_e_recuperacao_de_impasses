@@ -1,73 +1,73 @@
-# Dados:
-# N = 5 filósofos
-# Garfos 0..N-1 (garfo i fica entre filósofos i e (i+1) mod N)
-# Para cada filósofo p:
-# left = min(garfo_esquerda(p), garfo_direita(p))
-# right = max(garfo_esquerda(p), garfo_direita(p))
-# Loop:
-# pensar()
-# estado[p] <- "com fome"
-# adquirir(left) // bloqueia até o garfo estar livre
-# adquirir(right) // bloqueia até o garfo estar livre
-# estado[p] <- "comendo"
-# comer()
-# liberar(right)
-# liberar(left)
-# estado[p] <- "pensando"
+# Cada filósofo pega sempre o garfo da "esquerda" e depois o
+# da "direita", na ordem da mesa.
 
-#logica de exemplo
-
+# Como essa ordem depende da posição na mesa (e não de um índice),
+# é possível que todos peguem seu primeiro garfo ao mesmo tempo e fiquem
+# bloqueados esperando o segundo, que está nas mãos do vizinho.
+# Isso forma a espera circular (deadlock).
+#
+# As 4 condições de Coffman estão aqui:
+#   - exclusão mútua (Lock)
+#   - posse-e-espera (segura garfoE enquanto espera garfoD)
+#   - sem preempção (acquire nunca tira o lock de outra thread)
+#   - espera circular (possível dado o arranjo em anel dos garfos)
 
 from random import uniform
 from time import sleep
 from threading import Thread, Lock
 
-pratos = [0, 0, 0, 0, 0]
+nomes = ['Maquiavel', 'Kant', 'Sartre', 'Nietzsche', 'Dostoiévski']
+N = len(nomes)
+pratos = [0] * N
+estado = ["pensando"] * N  # estado[p]: pensando  com fome e comendo
+
 
 class Filosofo(Thread):
     exe = True  # variavel de execucao
 
-    def __init__(self, nome, garfoE, garfoD):
+    def __init__(self, indc, nome, garfoE, garfoD):
         Thread.__init__(self)
+        self.indc = indc
         self.nome = nome
         self.garfoE = garfoE
         self.garfoD = garfoD
 
     def run(self):
         while self.exe:
+            estado[self.indc] = "pensando"
             print(f"\n {self.nome} está pensando")
             sleep(uniform(5, 15))
             self.comer()
 
     def comer(self):
-        garfo1, garfo2 = self.garfoE, self.garfoD
-
+        estado[self.indc] = "com fome"
         print(f"\n {self.nome} ta com fome")
-        garfo1.acquire()  # bloqueia até conseguir o garfo da esquerda
-        garfo2.acquire()  # bloqueia até conseguir o garfo da direita
 
+        self.garfoE.acquire()  # bloqueia até conseguir o garfo da esquerda
+        self.garfoD.acquire()  # bloqueia até conseguir o garfo da direita
+
+        estado[self.indc] = "comendo"
         print(f"\n {self.nome} ta comendo")
         sleep(uniform(5, 10))
         print(f"\n {self.nome} parou de comer e ta pensando")
-        pratos[nomes.index(self.nome)] += 1
+        pratos[self.indc] += 1
         print(pratos)
 
-        # larga os garfos
-        garfo1.release()
-        garfo2.release()
+        self.garfoD.release()
+        self.garfoE.release()
 
 
-nomes = ['Maquiavel', 'Kant', 'Sartre', 'Nietzsche', 'Dostoiévski']
-garfos = [Lock() for _ in range(5)]
+if __name__ == "__main__":
+    garfos = [Lock() for _ in range(N)]
 
-mesa = [Filosofo(nomes[i], garfos[i % 5], garfos[(i + 1) % 5]) for i in range(5)]
-for _ in range(50):
-    Filosofo.exe = True
-    for filosofo in mesa:
-        try:
+    for rodada in range(50):
+        Filosofo.exe = True
+        mesa = [Filosofo(i, nomes[i], garfos[i], garfos[(i + 1) % N]) for i in range(N)]
+
+        for filosofo in mesa:
             filosofo.start()
             sleep(2)
-        except RuntimeError:
-            pass
-    sleep(uniform(5, 15))
-    Filosofo.exe = False
+
+        sleep(uniform(5, 15))
+        Filosofo.exe = False
+        print(f"\n--- fim da rodada {rodada + 1} (se travar aqui, é deadlock :( )) ---")
