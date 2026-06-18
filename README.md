@@ -34,8 +34,13 @@
 
 ### RELATÓRIO PARTE 1 - O jantar dos Filósofos
 
-### 1. INTRODUÇÃO
-    **Espera Circular** dois ou mais processos esperam pelo recurso que é mantido pelo próximo processo, onde o último processo depende do recurso do primeiro. Ex: p1 depende de p2 e p2 de p3, mas p3 depende de p1. 2.
+### 1. INTRODUÇÃO 
+    **Espera Circular** acontece quando dois ou mais processos esperam pelo recurso que é mantido pelo próximo processo, onde o último processo depende do recurso do primeiro. Ex: p1 depende de p2 e p2 de p3, mas p3 depende de p1. 2. Que é exatamente o que acontece no Jantar dos Filosofos. No nosso caso nós temos 5 filósofos sentados em uma mesa, com um ciclo de vida que se baseia em: Comer, onde o filósofo está com dois garfos na mão jantando, Pensando, onde o filósofo está tranquilo apenas pensando e com fome, onde o filósofo está tentando comer, provavelmente sendo impedido pela falta dos dois garfos.
+
+### 2. DESENVOLVIMENTO
+    
+
+
 
 
 ### Orientações de Execução do Código
