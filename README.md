@@ -18,7 +18,7 @@
 **Nome: Grupo 3**
 
 **Integrantes:**
- * Arthur Kuzma
+ * Artur Kuzma
  * Larissa Adames
  * Rafael Fernandes
    
@@ -33,7 +33,39 @@
  ### Relatórios de Desenvolvimento
 
 ## Relatorio 1
-## Relatorio 2
+## RELATÓRIO PARTE 2 - Sincronização com Semáforos
+
+## 1. INTRODUÇÃO
+  **Condição de Corrida** é uma falha que ocorre em sistemas concorrentes quando múltiplas threads tentam acessar e modificar um recurso compartilhado ao mesmo tempo. Sem sincronização, a ordem em que as threads são escalonadas pelo sistema operacional altera o resultado final, gerando estados inconsistentes ou dados corrompidos.
+  
+  Para garantir que a condição de corrida não ocorra e proteger onde o recurso compartilhado é acessado, utilizamos a sincronização. O mecanismo utilizado nesta parte do trabalho é o **Semáforo Binário**. Ele age como uma chave de exclusão mútua: apenas uma thread pode "adquirir" a permissão para acessar recursos compartilhados por vez e, enquanto não "liberar" a chave, qualquer outra thread que tente entrar ficará bloqueada em estado de espera.
+
+## 2. DESENVOLVIMENTO 
+  Nesse teste foi criado um script em Python para provar na prática o problema da perda de dados sem sincronização e a consistência dos dados com semáforo. A ideia proposta foi: lançar 8 threads, fazendo cada uma somar +1 em uma variável `total` cerca de 200.000 vezes. O resultado esperado ao final de tudo seria `1.600.000`. Essa parte 2 utiliza as bibliotecas `threading` para a criação, gerência de threads e inicialização do Semáforo binário e a biblioteca `time` para controlar os atrasos que induziam a falha, além de medir com precisão o tempo de execução e demonstrar  a troca de desempenho.
+
+  Para que o erro ficasse mais claro na versão sem sincronização, foi aplicado um `time.sleep(0)`. Isso avisa ao *GIL* para pausar a thread atual e dar a vez para outra, assim sendo possível ver a perda de dados. 
+
+## 2.2 Evidências de Execução
+
+<img width="563" height="157" alt="image" src="https://github.com/user-attachments/assets/273313a3-2a0d-4259-98a7-5448bc3fa4a4" />
+<img width="563" height="87" alt="image" src="https://github.com/user-attachments/assets/99b739cc-b483-4649-92b7-746fb968b7d1" />
+
+**Código Sem Sincronização (Perda de Dados):**
+Ocorre perda de incrementos pela falta de atomicidade. A operação se divide em ler, somar e salvar. Múltiplas threads leem o mesmo valor antigo e sobrescrevem o trabalho umas das outras.
+
+**Código Com Semáforo (Sucesso):**
+Garante que a linha `total += 1` ocorra de forma exata e exclusiva. A thread pede licença (`acquire()`), efetua a soma e só então libera o acesso (`release()`).
+
+## 3. CONCLUSÃO 
+  Os testes mostram que a versão sem sincronização nunca atinge o valor correto em condições de alta concorrência devido à condição de corrida. Para solucionar o problema e assegurar `1.600.000` de forma exata, foi introduzido o semáforo binário. Ele estabelece uma barreira de memória garantindo exclusão mútua.
+
+  Na teoria a sincronização introduz um "custo de processamento": o código sincronizado deveria ser mais lento pois exige trocas de estado e enfileira as threads. Porém, nos tempos de execução coletados na nossa tabela, a versão sem sincronização foi surpreendentemente mais lenta. Isso acontece por conta do `time.sleep(0)`. Como o Python possui o GIL, a linha `total += 1` é pseudo-atômica na maior parte do tempo. Para provarmos a perda de dados, adicionamos `sleep` para forçar o sistema a ceder a CPU no meio da operação. Chamar essa interrupção 1.6 milhão de vezes exigiu do SO um enorme volume  de trocas de contexto que custou mais tempo de processamento do que as pausas da fila do semáforo binário.
+
+## Orientações de Execução do Código
+* Clone esse repositório normalmente em sua máquina;
+* Em sua IDE de preferência (VS code é o recomendado) localize o projeto;
+* Abra o terminal e execute o código com o comando: `cd .\parte2-semaforo\; python parte2-semaforo.py`.
+
 ## RELATÓRIO PARTE 3 - DEADLOCK
 ## 1. INTRODUÇÃO
   DeadLock é um estado em que um sistema pode se encontrar onde um processo em execução (p1) espera um recurso que está sendo mantido por um outro processo em execução (p2), que por sua vez o p2 também está esperando um recurso que está sendo mantido pelo p1, assim causando um ciclo onde nenhum dos processos consegue ser concluído, pois, para serem concluídos, ambos necessitam de um recurso que está em posse do outro.  
