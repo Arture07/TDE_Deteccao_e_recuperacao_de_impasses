@@ -50,6 +50,8 @@ Para evitar isso, aplicamos a **ordenação de recursos**, ao invés do filosofo
 
 ### 2.2 EVIDÊNCIA DE EXECUÇÃO
 
+![foto-sucesso-filo](img/filosofoSucess.png)
+![foto-sucesso-filo](img/filoFalha.png)
 
 ### Orientações de Execução do Código
 * Clone esse repositório normalmente em sua máquina; com o comando: `git clone https://github.com/Arture07/TDE_Deteccao_e_recuperacao_de_impasses.git`
