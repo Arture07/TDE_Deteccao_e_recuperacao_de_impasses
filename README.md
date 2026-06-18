@@ -35,12 +35,20 @@
 ### RELATÓRIO PARTE 1 - O jantar dos Filósofos
 
 ### 1. INTRODUÇÃO 
-    Espera Circular acontece quando dois ou mais processos esperam pelo recurso que é mantido pelo próximo processo, onde o último processo depende do recurso do primeiro. Ex: p1 depende de p2 e p2 de p3, mas p3 depende de p1. 2. Que é exatamente o que acontece no Jantar dos Filosofos. No nosso caso nós temos 5 filósofos sentados em uma mesa, com um ciclo de vida que se baseia em: Comer, onde o filósofo está com dois garfos na mão jantando, Pensando, onde o filósofo está tranquilo apenas pensando e com fome, onde o filósofo está tentando comer, provavelmente sendo impedido pela falta dos dois garfos.
+**Espera Circular** acontece quando dois ou mais processos esperam pelo recurso que é mantido pelo próximo processo, onde o último processo depende do recurso do primeiro. Ex: p1 depende de p2 e p2 de p3, mas p3 depende de p1. 2. 
+
+Que é exatamente o que acontece no Jantar dos Filosofos. No nosso caso nós temos 5 filósofos sentados em uma mesa, com um ciclo de vida que se baseia em: Comer, onde o filósofo está com dois garfos na mão jantando, Pensando, onde o filósofo está tranquilo apenas pensando e com fome, onde o filósofo está tentando comer. Exite um risco de deadlock se todos os filosofos pegarem seus garfos ao mesmo tempo.
 
 ### 2. DESENVOLVIMENTO
 
+Ambos os scripts utilizam a biblioteca `threading`, representando cada filósofo como uma `Thread` e cada garfo como um `Lock`. São simulados 5 filósofos (Maquiavel, Kant, Sartre, Nietzsche e Dostoiévski), dispostos em uma mesa circular onde o garfo `i` fica entre o filósofo `i` e o filósofo `(i+1) mod N`. A cada execução, os filósofos alternam entre pensar (`sleep` com tempo aleatório) e tentar comer, sendo o estado de cada um registrado em uma lista compartilhada (`pensando`, `com fome`, `comendo`) e o número de refeições contado em `pratos`.
+
+No arquivo `filosofosNaoFuncional.py`, cada filósofo simplesmente adquire `garfoE` (o garfo à sua esquerda) e depois `garfoD` (o garfo à sua direita), seguindo apenas a posição na mesa. Como essa ordem depende da disposição dos filósofos na mesa, e não de um critério goblal, onde o garfo esquerdo de um é o direito de outro. Existe a possibilidade de todos os garfos serem pegados ao mesmo tempo. Ou formar uma **espera circular** onde um filosofo pega o seu garfo da esquerda antes do seu vizinho pegar o da direita dele. 
+
+Para evitar isso, aplicamos a **ordenação de recursos**, ao invés do filosofo escolher o garfo com base na posição da mesa, ele escolhe com base em um índice pre definido, sempre dando preferência para o menor índice e apenas depois para o maior, independente de qual seja a sua proximidade física, assim criando um critério global como citado anteriormente.
 
 
+### 2.2 EVIDÊNCIA DE EXECUÇÃO
 
 
 ### Orientações de Execução do Código
