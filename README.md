@@ -49,9 +49,14 @@ Para evitar isso, aplicamos a **ordenação de recursos**, ao invés do filosofo
 
 
 ### 2.2 EVIDÊNCIA DE EXECUÇÃO
-
+Foto codigo funcional:
 ![foto-sucesso-filo](img/filosofoSucess.png)
+Foto código ingênuo:
 ![foto-sucesso-filo](img/filoFalha.png)
+(eventualmente o código travava em deadlock)
+
+### Conclusões
+A comparação entre os dois scripts mostra que basta eliminar a espera circular para evitar o deadlock no jantar dos filósofos. As outras três condições de Coffman continuam presentes nos dois scripts; o que muda é a ordem de aquisição dos garfos: na versão com falha, ela depende da posição de cada filósofo na mesa, e na versão corrigida, ela segue sempre o índice numérico do garfo. Essa pequena mudança quebra o ciclo de dependência entre os filósofos e garante que o programa nunca trave, sem exigir nenhuma estrutura extra de coordenação.
 
 ### Orientações de Execução do Código
 * Clone esse repositório normalmente em sua máquina; com o comando: `git clone https://github.com/Arture07/TDE_Deteccao_e_recuperacao_de_impasses.git`
