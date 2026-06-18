@@ -50,9 +50,13 @@ Para evitar isso, aplicamos a **ordenação de recursos**, ao invés do filosofo
 
 ### 2.2 EVIDÊNCIA DE EXECUÇÃO
 Foto codigo funcional:
+
 ![foto-sucesso-filo](img/filosofoSucess.png)
+
 Foto código ingênuo:
+
 ![foto-sucesso-filo](img/filoFalha.png)
+
 (eventualmente o código travava em deadlock)
 
 ### Conclusões
