@@ -32,7 +32,17 @@
  
 ## Relatórios de Desenvolvimento
 
-### Relatorio 1
+### RELATÓRIO PARTE 1 - O jantar dos Filósofos
+
+### 1. INTRODUÇÃO
+    **Espera Circular** dois ou mais processos esperam pelo recurso que é mantido pelo próximo processo, onde o último processo depende do recurso do primeiro. Ex: p1 depende de p2 e p2 de p3, mas p3 depende de p1. 2.
+
+
+### Orientações de Execução do Código
+* Clone esse repositório normalmente em sua máquina; com o comando: `git clone https://github.com/Arture07/TDE_Deteccao_e_recuperacao_de_impasses.git`
+* Em sua IDE de preferência (VS code é o recomendado) localize o projeto;
+* Abra o terminal e execute o código com o comando: `cd .\filosofosFuncional\; python filosofosFuncional.py`.
+
 ### RELATÓRIO PARTE 2 - Sincronização com Semáforos
 
 ### 1. INTRODUÇÃO
